@@ -67,7 +67,7 @@ class Amazin_Featured_Box_List_Table extends WP_List_Table {
     function get_columns() {
         $columns = array(
             'cb'           => '<input type="checkbox" />',
-            'name'      => __( 'Name', 'afb' ),
+            'name'      => __( 'Featured Article Name', 'afb' ),
             'shortcode'      => __( 'Shortcode', 'afb' ),
             'author'      => __( 'Author', 'afb' ),
             'last_modified'      => __( 'Last Modified', 'afb' ),
@@ -86,11 +86,15 @@ class Amazin_Featured_Box_List_Table extends WP_List_Table {
      */
     function column_name($item){
         $item_json = json_decode(json_encode($item), true);
+        $content = json_decode($item_json['post_content'], true);
+        $featuredPostID = $content['featuredPostID']; //$content['customLabel']; //ex: 1852
+        $title = $featuredPostID ? get_the_title( $featuredPostID ) : "use saved custom title";
         $actions = array(
             'edit' => sprintf('<a href="?page=%s&action=%s&id=%s">Edit</a>', $_REQUEST['page'], 'edit', $item_json['ID']),
             'delete' => sprintf('<a href="?page=%s&action=%s&id=%s">Delete</a>', $_REQUEST['page'], 'delete', $item_json['ID']),
         );
-        return sprintf('<b>%s</b> %s', $item_json['post_title'], $this->row_actions($actions));
+        return sprintf('<b>%s</b> %s', (string)$title, $this->row_actions($actions));
+        //return sprintf('<b>%s</b> %s', $item_json['post_title'], $this->row_actions($actions));
     }
 
     /**
@@ -100,7 +104,7 @@ class Amazin_Featured_Box_List_Table extends WP_List_Table {
      */
     function get_sortable_columns() {
         $sortable_columns = array(
-            'name' => array( 'post_title', true ),
+            'name' => array( 'post_title', true )
         );
 
         return $sortable_columns;

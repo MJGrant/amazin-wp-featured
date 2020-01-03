@@ -38,21 +38,31 @@ class Amazin_Featured_Box_Form_Handler {
         $page_url = admin_url( 'admin.php?page=amazinFeaturedBox' );
         $field_id = isset( $_POST['field_id'] ) ? intval( $_POST['field_id'] ) : 0;
 
-        $field_url = isset( $_POST['Featured-URL'] ) ? sanitize_text_field( $_POST['Featured-URL'] ) : '';
-        $field_featuredPostID = isset( $_POST['Featured-URL'] ) ? url_to_postid(sanitize_text_field( $_POST['Featured-URL'] )) : '';
+        $field_featuredURL = isset( $_POST['Featured-URL'] ) ? sanitize_text_field( $_POST['Featured-URL'] ) : '';
+        
+        // get post ID from the URL provided (hopefully they provided one, else the error checking below will catch)
+        $featuredPostID = isset( $_POST['Featured-URL'] ) ? url_to_postid(sanitize_text_field( $_POST['Featured-URL'] )) : '';
 
+        // either use the custom label the user entered or enter blank to indicate the user wants to use the 'global' one
         $field_customLabel = isset( $_POST['Custom-Label'] ) ? sanitize_text_field( $_POST['Custom-Label'] ) : '';
+
+        // either use the name the user entered or leave blank to indicate the post name should be retrieved when displaying the featured box 
         $field_customName = isset( $_POST['Custom-Name'] ) ? sanitize_text_field( $_POST['Custom-Name'] ) : '';
+
+        // either use the custom tagline the user entered or leave it blank (and don't display it later on)
         $field_tagline = isset( $_POST['Tagline'] ) ? sanitize_text_field( $_POST['Tagline'] ) : '';
+
+        // button text is optional 
         $field_buttonText = isset( $_POST['Button-Text'] ) ? sanitize_text_field( $_POST['Button-Text'] ) : '';
+
+        // user can upload an image or use the one associated with the post by its ID 
         $field_featuredImage = isset( $_POST['Featured-Image'] ) ? sanitize_text_field( $_POST['Featured-Image'] ) : '';
 
         // some basic validation
-        if ( ! $field_url ) {
+        if ( ! $field_featuredURL ) {
             $errors[] = __( 'Error: URL is required', 'afb' );
         }
-
-        if ( ! $field_featuredPostID ) {
+        if ( ! $featuredPostID ) {
             $errors[] = __( 'Error: URL could not be transformed into a post ID', 'afb' );
         }
 
@@ -65,11 +75,11 @@ class Amazin_Featured_Box_Form_Handler {
         }
 
         $content = array(
+            'featuredURL' => $field_featuredURL,
             'featuredPostID' => $field_featuredPostID,
             'customLabel' => $field_customLabel,
             'customName' => $field_customName,
             'featuredTagline' => $field_tagline,
-            'featuredUrl' => $field_url,
             'featuredButtonText' => $field_buttonText,
             'featuredImage' => $field_featuredImage //ID of media attachment
         );
