@@ -38,32 +38,22 @@ class Amazin_Featured_Box_Form_Handler {
         $page_url = admin_url( 'admin.php?page=amazinFeaturedBox' );
         $field_id = isset( $_POST['field_id'] ) ? intval( $_POST['field_id'] ) : 0;
 
-        $field_featuredName = isset( $_POST['Featured-Name'] ) ? sanitize_text_field( $_POST['Featured-Name'] ) : '';
+        $field_url = isset( $_POST['Featured-URL'] ) ? sanitize_text_field( $_POST['Featured-URL'] ) : '';
+        $field_featuredPostID = isset( $_POST['Featured-URL'] ) ? url_to_postid(sanitize_text_field( $_POST['Featured-URL'] )) : '';
+
+        $field_customLabel = isset( $_POST['Custom-Label'] ) ? sanitize_text_field( $_POST['Custom-Label'] ) : '';
+        $field_customName = isset( $_POST['Custom-Name'] ) ? sanitize_text_field( $_POST['Custom-Name'] ) : '';
         $field_tagline = isset( $_POST['Tagline'] ) ? sanitize_text_field( $_POST['Tagline'] ) : '';
-        $field_description = isset( $_POST['Description'] ) ? wp_kses_post( $_POST['Description'] ) : '';
-        $field_url = isset( $_POST['URL'] ) ? sanitize_text_field( $_POST['URL'] ) : '';
         $field_buttonText = isset( $_POST['Button-Text'] ) ? sanitize_text_field( $_POST['Button-Text'] ) : '';
         $field_featuredImage = isset( $_POST['Featured-Image'] ) ? sanitize_text_field( $_POST['Featured-Image'] ) : '';
 
         // some basic validation
-        if ( ! $field_featuredName ) {
-            $errors[] = __( 'Error: Name is required', 'afb' );
-        }
-
-        if ( ! $field_tagline ) {
-            $errors[] = __( 'Error: Tagline is required', 'afb' );
-        }
-
-        if ( ! $field_description ) {
-            $errors[] = __( 'Error: Description is required', 'afb' );
-        }
-
         if ( ! $field_url ) {
             $errors[] = __( 'Error: URL is required', 'afb' );
         }
 
-        if ( ! $field_buttonText ) {
-            $errors[] = __( 'Error: Button Text is required', 'afb' );
+        if ( ! $field_featuredPostID ) {
+            $errors[] = __( 'Error: URL could not be transformed into a post ID', 'afb' );
         }
 
         // bail out if error found
@@ -75,9 +65,10 @@ class Amazin_Featured_Box_Form_Handler {
         }
 
         $content = array(
-            'featuredName' => $field_featuredName,
+            'featuredPostID' => $field_featuredPostID,
+            'customLabel' => $field_customLabel,
+            'customName' => $field_customName,
             'featuredTagline' => $field_tagline,
-            'featuredDescription' => $field_description,
             'featuredUrl' => $field_url,
             'featuredButtonText' => $field_buttonText,
             'featuredImage' => $field_featuredImage //ID of media attachment

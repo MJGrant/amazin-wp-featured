@@ -24,7 +24,7 @@ add_action( 'init', function() {
     $cssurl = plugin_dir_url(__FILE__) . 'styles.css';
     wp_enqueue_style( 'amazin-stylesheet', $cssurl, array(), 1.35 );
 
-    register_post_type('amazin_product_box',
+    register_post_type('amazin_featured_box',
         array(
             'labels' => array(
                 'name' => __( 'Amazin Featured Boxes' ),
@@ -40,9 +40,9 @@ add_action( 'init', function() {
         )
     );
 
-    add_option( 'amazin_featured_box_option_headline', 'Editor\'s Choice');
+    add_option( 'amazin_featured_box_option_label', 'Editor\'s Choice');
     add_option( 'amazin_featured_box_option_new_tab', false);
-    register_setting( 'amazin_featured_box_options_group', 'amazin_featured_box_option_headline', 'amazin_featured_box_callback' );
+    register_setting( 'amazin_featured_box_options_group', 'amazin_featured_box_option_label', 'amazin_featured_box_callback' );
     register_setting( 'amazin_featured_box_options_group', 'amazin_featured_box_option_new_tab', 'amazin_featured_box_callback' );
 
     add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'amazin_featured_add_plugin_action_links' );
@@ -52,7 +52,7 @@ add_action( 'init', function() {
 
 function amazin_featured_add_plugin_action_links( $links ) {
     $plugin_url = admin_url( 'admin.php?page=amazinFeaturedBox' );
-    $links[] = '<a href="' . $plugin_url . '">' . __( 'Manage Featured Boxes', 'afb' ) . '</a>';
+    $links[] = '<a href="' . $plugin_url . '">' . __( 'Manage Featured Article Boxes', 'afb' ) . '</a>';
     return $links;
 }
 
@@ -75,28 +75,35 @@ function amazin_featured_box_render_in_post($featuredBox) {
     $id = $featuredBox->ID;
     $featuredBoxTitle = $featuredBox->post_title;
     $item = afb_get_featured_box( 219 );
-    //die($item);
-    $content = json_decode($item->post_content, true);
-    //$stripped = stripslashes($featuredBox->post_content);
-    //$content = json_decode($stripped, true);
     $newTab = get_option('amazin_featured_box_option_new_tab') ? 'target="_blank"' : '';
+
+    // content contains things like post ID, custom label and tagline, etc. 
+    $content = json_decode($item->post_content, true);
+
+    // If the user set a label, use that. Otherwise, use the universal label from options. 
+    $featuredPostID = $content['featuredPostID'];
+    $label = $content['customLabel'] ? $content['customLabel'] : get_option('amazin-featured_box_option_label');
+    
+    // If the user set custom text for the link, use that. Otherwise, get and use the post's current title.
+
+    // Get the post's author and last updated date using the post ID saved to this feature box
+    $authorID = get_the_author_meta( $featuredPostID );
+    $authorName = get_the_author_meta( 'display_name', $authorID )
 
     ?>
         <div class="amazin-featured-box" id="<?php echo 'amazin-featured-box-id-'.$id; ?>">
-            <p class="amazin-featured-box-recommend-text"><?php echo get_option('amazin_featured_box_option_headline'); ?></p>
+            <p class="amazin-featured-box-label"><?php echo $label ?></p>
+            <p class="amazin-featured-box-recommend-text"><?php echo get_option('amazin_featured_box_option_label'); ?></p>
             <h3 class="amazin-featured-box-featured-name"><?php echo $featuredBoxTitle ?></h3>
+            
             <div class="amazin-featured-box-image-row">
-                <div class="amazin-featured-box-column amazin-featured-box-left">
-                    <img src="<?php echo wp_get_attachment_url( $content['productImage'] ) ?>"/>
-                </div>
-                <div class="amazin-featured-box-column amazin-featured-box-right">
-                    <p class="amazin-featured-box-tagline"><?php echo $content['productTagline'] ?></p>
-                    <p class="amazin-featured-box-description" ><?php echo $content['productDescription'] ?></p>
-                </div>
+                <img src="<?php echo wp_get_attachment_url( $content['productImage'] ) ?>"/>
+                <p class="amazin-featured-box-tagline"><?php echo $content['productTagline'] ?></p>
             </div>
             <div class="amazin-featured-box-button-wrap">
                 <a href="<?php echo $content['productUrl'] ?>" class="amazin-featured-box-button" <?php echo $newTab ?> ><?php echo $content['productButtonText'] ?></a>
             </div>
+            <span> By <?php echo $authorName ?></span>
         </div>
     <?php
     return ob_get_clean();

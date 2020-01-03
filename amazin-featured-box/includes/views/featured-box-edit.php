@@ -23,6 +23,18 @@ defined( 'ABSPATH' ) OR exit;
         <table class="form-table">
             <tbody>
 
+                <!-- Edit the URL -->
+                <tr class="row-URL">
+                    <th scope="row">
+                        <label for="URL"><?php _e( 'Featured article URL', 'afb' ); ?></label>
+                    </th>
+                    <td>
+                        <input type="text" name="URL" id="URL" class="regular-text" placeholder="<?php echo esc_attr( '', 'afb' ); ?>" value="<?php echo esc_attr( $content['featuredUrl'] ); ?>" required="required" />
+                        <br/>
+                        <span class="description"><?php _e('Link to the featured post or page', 'afb' ); ?></span>
+                    </td>
+                </tr>
+
                 <tr class="row-featuredName">
                     <th scope="row">
                         <label for="Featured-Name"><?php _e( 'Featured name', 'afb' ); ?></label>
@@ -72,16 +84,7 @@ defined( 'ABSPATH' ) OR exit;
                         <span class="description"><?php _e('Write about 20-30 words (~200 characters) enticing your visitor to choose this featured post', 'afb' ); ?></span>
                     </td>
                 </tr>
-                <tr class="row-URL">
-                    <th scope="row">
-                        <label for="URL"><?php _e( 'URL', 'afb' ); ?></label>
-                    </th>
-                    <td>
-                        <input type="text" name="URL" id="URL" class="regular-text" placeholder="<?php echo esc_attr( '', 'afb' ); ?>" value="<?php echo esc_attr( $content['featuredUrl'] ); ?>" required="required" />
-                        <br/>
-                        <span class="description"><?php _e('Featured affiliate link, including https://', 'afb' ); ?></span>
-                    </td>
-                </tr>
+                
                 <tr class="row-buttonText">
                     <th scope="row">
                         <label for="Button-Text"><?php _e( 'Button text', 'afb' ); ?></label>
