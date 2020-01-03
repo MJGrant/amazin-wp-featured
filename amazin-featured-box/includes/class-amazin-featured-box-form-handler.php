@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) OR exit;
  * @package Package
  * @subpackage Sub Package
  */
-class Form_Handler {
+class Amazin_Featured_Box_Form_Handler {
 
     /**
      * Hook 'em all
@@ -17,53 +17,53 @@ class Form_Handler {
     }
 
     /**
-     * Handle the product box new and edit form
+     * Handle the featured box new and edit form
      *
      * @return void
      */
     public function handle_form() {
-        if ( ! isset( $_POST['submit_product_box'] ) ) {
+        if ( ! isset( $_POST['submit_featured_box'] ) ) {
             return;
         }
 
         if ( ! wp_verify_nonce( $_POST['_wpnonce'], '' ) ) {
-            die( __( 'Security check failed.', 'apb' ) );
+            die( __( 'Security check failed.', 'afb' ) );
         }
 
         if ( ! current_user_can( 'read' ) ) {
-            wp_die( __( 'Permission denied!', 'apb' ) );
+            wp_die( __( 'Permission denied!', 'afb' ) );
         }
 
         $errors   = array();
-        $page_url = admin_url( 'admin.php?page=amazinProductBox' );
+        $page_url = admin_url( 'admin.php?page=amazinFeaturedBox' );
         $field_id = isset( $_POST['field_id'] ) ? intval( $_POST['field_id'] ) : 0;
 
-        $field_productName = isset( $_POST['Product-Name'] ) ? sanitize_text_field( $_POST['Product-Name'] ) : '';
+        $field_featuredName = isset( $_POST['Featured-Name'] ) ? sanitize_text_field( $_POST['Featured-Name'] ) : '';
         $field_tagline = isset( $_POST['Tagline'] ) ? sanitize_text_field( $_POST['Tagline'] ) : '';
         $field_description = isset( $_POST['Description'] ) ? wp_kses_post( $_POST['Description'] ) : '';
         $field_url = isset( $_POST['URL'] ) ? sanitize_text_field( $_POST['URL'] ) : '';
         $field_buttonText = isset( $_POST['Button-Text'] ) ? sanitize_text_field( $_POST['Button-Text'] ) : '';
-        $field_productImage = isset( $_POST['Product-Image'] ) ? sanitize_text_field( $_POST['Product-Image'] ) : '';
+        $field_featuredImage = isset( $_POST['Featured-Image'] ) ? sanitize_text_field( $_POST['Featured-Image'] ) : '';
 
         // some basic validation
-        if ( ! $field_productName ) {
-            $errors[] = __( 'Error: Product Name is required', 'apb' );
+        if ( ! $field_featuredName ) {
+            $errors[] = __( 'Error: Name is required', 'afb' );
         }
 
         if ( ! $field_tagline ) {
-            $errors[] = __( 'Error: Tagline is required', 'apb' );
+            $errors[] = __( 'Error: Tagline is required', 'afb' );
         }
 
         if ( ! $field_description ) {
-            $errors[] = __( 'Error: Description is required', 'apb' );
+            $errors[] = __( 'Error: Description is required', 'afb' );
         }
 
         if ( ! $field_url ) {
-            $errors[] = __( 'Error: URL is required', 'apb' );
+            $errors[] = __( 'Error: URL is required', 'afb' );
         }
 
         if ( ! $field_buttonText ) {
-            $errors[] = __( 'Error: Button Text is required', 'apb' );
+            $errors[] = __( 'Error: Button Text is required', 'afb' );
         }
 
         // bail out if error found
@@ -75,18 +75,18 @@ class Form_Handler {
         }
 
         $content = array(
-            'productName' => $field_productName,
-            'productTagline' => $field_tagline,
-            'productDescription' => $field_description,
-            'productUrl' => $field_url,
-            'productButtonText' => $field_buttonText,
-            'productImage' => $field_productImage //ID of media attachment
+            'featuredName' => $field_featuredName,
+            'featuredTagline' => $field_tagline,
+            'featuredDescription' => $field_description,
+            'featuredUrl' => $field_url,
+            'featuredButtonText' => $field_buttonText,
+            'featuredImage' => $field_featuredImage //ID of media attachment
         );
 
-        $product_box = array(
+        $featured_box = array(
             'ID'            => $field_id,
-            'post_title'    => $field_productName,
-            'post_type'     => 'amazin_product_box',
+            'post_title'    => $field_featuredName,
+            'post_type'     => 'amazin_featured_box',
             'post_content'  => wp_json_encode($content, JSON_HEX_APOS), //broke when switched this from 'none' to the content array
             'post_status'   => 'publish',
             'post_author'   => 1,
@@ -95,9 +95,9 @@ class Form_Handler {
 
         // New or edit?
         if ( ! $field_id ) {
-            $insert_id = apb_new_product_box( $product_box );
+            $insert_id = afb_new_featured_box( $featured_box );
         } else {
-            $insert_id = apb_update_product_box( $product_box );
+            $insert_id = afb_update_featured_box( $featured_box );
         }
 
         if ( is_wp_error( $insert_id ) ) {
@@ -111,4 +111,4 @@ class Form_Handler {
     }
 }
 
-new Form_Handler();
+new Amazin_Featured_Box_Form_Handler();

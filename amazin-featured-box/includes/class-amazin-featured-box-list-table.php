@@ -8,12 +8,12 @@ if ( ! class_exists ( 'WP_List_Table' ) ) {
 /**
  * List table class
  */
-class Amazin_Product_Box_List_Table extends WP_List_Table {
+class Amazin_Featured_Box_List_Table extends WP_List_Table {
 
     function __construct() {
         parent::__construct( array(
-            'singular' => 'product_box',
-            'plural'   => 'product_boxes',
+            'singular' => 'featured_box',
+            'plural'   => 'featured_boxes',
             'ajax'     => false
         ) );
     }
@@ -28,7 +28,7 @@ class Amazin_Product_Box_List_Table extends WP_List_Table {
      * @return void
      */
     function no_items() {
-        _e( 'No Product Boxes exist!', 'apb' );
+        _e( 'No Featured Boxes exist!', 'afb' );
     }
 
     /**
@@ -46,7 +46,7 @@ class Amazin_Product_Box_List_Table extends WP_List_Table {
                 return 'Name here'; //$item->post_title;
 
             case 'shortcode':
-                return '[amazin-product-box id="'.$item->ID.'"]';
+                return '[amazin-featured-box id="'.$item->ID.'"]';
 
             case 'author':
                 return get_the_author_meta( 'display_name', $item->post_author );;
@@ -67,10 +67,10 @@ class Amazin_Product_Box_List_Table extends WP_List_Table {
     function get_columns() {
         $columns = array(
             'cb'           => '<input type="checkbox" />',
-            'name'      => __( 'Name', 'apb' ),
-            'shortcode'      => __( 'Shortcode', 'apb' ),
-            'author'      => __( 'Author', 'apb' ),
-            'last_modified'      => __( 'Last Modified', 'apb' ),
+            'name'      => __( 'Name', 'afb' ),
+            'shortcode'      => __( 'Shortcode', 'afb' ),
+            'author'      => __( 'Author', 'afb' ),
+            'last_modified'      => __( 'Last Modified', 'afb' ),
 
         );
 
@@ -113,7 +113,7 @@ class Amazin_Product_Box_List_Table extends WP_List_Table {
      */
     function get_bulk_actions() {
         $actions = array(
-            'delete'  => __( 'Delete', 'apb' ),
+            'delete'  => __( 'Delete', 'afb' ),
         );
         return $actions;
     }
@@ -139,7 +139,7 @@ class Amazin_Product_Box_List_Table extends WP_List_Table {
                     $ids = isset($_REQUEST['id']) ? $_REQUEST['id'] : array();
                     if (!is_array($ids)) $ids = array($_REQUEST['id']);
 
-                    apb_delete_product_boxes($ids); //expects an array
+                    afb_delete_featured_boxes($ids); //expects an array
                 }
                 break;
 
@@ -173,7 +173,7 @@ class Amazin_Product_Box_List_Table extends WP_List_Table {
      */
     public function get_views_() {
         $status_links   = array();
-        $base_link      = admin_url( 'admin.php?page=amazinProductBox' );
+        $base_link      = admin_url( 'admin.php?page=amazinFeaturedBox' );
 
         foreach ($this->counts as $key => $value) {
             $class = ( $key == $this->page_status ) ? 'current' : 'status-' . $key;
@@ -217,10 +217,10 @@ class Amazin_Product_Box_List_Table extends WP_List_Table {
         $this->process_bulk_action();
 
         // now get all the items (minus any deleted ones from prior step)
-        $this->items  = apb_get_all_product_boxes( $args );
+        $this->items  = afb_get_all_featured_boxes( $args );
 
         $this->set_pagination_args( array(
-            'total_items' => apb_get_product_box_count(),
+            'total_items' => afb_get_featured_box_count(),
             'per_page'    => $per_page
         ) );
     }

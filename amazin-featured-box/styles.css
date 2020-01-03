@@ -1,5 +1,5 @@
-/* Default styles for the Amazin' Product Box */
-.amazin-product-box {
+/* Default styles for the Amazin' Featured Box */
+.amazin-featured-box {
     border:1px solid grey;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding:28px;
@@ -7,28 +7,28 @@
     margin:30px auto !important;
 }
 
-.amazin-product-box-column {
+.amazin-featured-box-column {
     float:left;
 }
 
-.amazin-product-box-image-row {
+.amazin-featured-box-image-row {
     display:flex;
     margin-bottom:20px;
 }
 
-.amazin-product-box-left {
+.amazin-featured-box-left {
     width:50%;
     display:flex;
     justify-content:center;
     align-items:center;
 }
 
-.amazin-product-box-right {
+.amazin-featured-box-right {
     width:45%;
     margin-left:20px;
 }
 
-.amazin-product-box-recommend-text {
+.amazin-featured-box-recommend-text {
     text-transform:uppercase;
     font-size:.8em;
     letter-spacing: 3px;
@@ -36,32 +36,32 @@
     margin-bottom:0px;
 }
 
-.amazin-product-box-product-name {
+.amazin-featured-box-featured-name {
     text-align:center;
     margin:10px 0px 32px;
 }
 
-.amazin-product-box-tagline {
+.amazin-featured-box-tagline {
     font-weight:bold;
     margin:0px;
     line-height:1.4;
 }
 
-.amazin-product-box-description {
+.amazin-featured-box-description {
     line-height:1.4;
     margin-top:12px;
 }
 
-.amazin-product-box-button-wrap {
+.amazin-featured-box-button-wrap {
     text-align:center;
 }
 
-.amazin-product-box a, .amazin-product-box a:visited, .amazin-product-box a:hover {
+.amazin-featured-box a, .amazin-featured-box a:visited, .amazin-featured-box a:hover {
     color:white;
     text-decoration:none !important;
 }
 
-.amazin-product-box-button {
+.amazin-featured-box-button {
     background-color: #85bf31;
     padding:12px 18px;
     text-align:center;
@@ -72,11 +72,11 @@
 }
 
 @media screen and (max-width: 512px) {
-    .amazin-product-box-left {
+    .amazin-featured-box-left {
         width:100%;
     }
 
-    .amazin-product-box-right {
+    .amazin-featured-box-right {
         width:100%;
         margin-left:0;
         margin-top:12px;

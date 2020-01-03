@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) OR exit;
 /**
  * Admin Menu
  */
-class Amazin_Product_Box_Admin_Menu {
+class Amazin_Featured_Box_Admin_Menu {
 
     /**
      * Kick-in the class
@@ -21,9 +21,9 @@ class Amazin_Product_Box_Admin_Menu {
     public function admin_menu() {
 
         /** Top Menu **/
-        add_menu_page( __( 'AmazinProductBox', 'apb' ), __( 'Amazin\' Product Box', 'apb' ), 'manage_options', 'amazinProductBox', array( $this, 'plugin_page' ), 'dashicons-grid-view', null );
+        add_menu_page( __( 'AmazinFeaturedBox', 'afb' ), __( 'Amazin\' Featured Box', 'afb' ), 'manage_options', 'amazinFeaturedBox', array( $this, 'plugin_page' ), 'dashicons-grid-view', null );
 
-        add_submenu_page( 'amazinProductBox', __( 'AmazinProductBox', 'apb' ), __( 'AmazinProductBox', 'apb' ), 'manage_options', 'amazinProductBox', array( $this, 'plugin_page' ) );
+        add_submenu_page( 'amazinFeaturedBox', __( 'AmazinFeaturedBox', 'afb' ), __( 'AmazinFeaturedBox', 'afb' ), 'manage_options', 'amazinFeaturedBox', array( $this, 'plugin_page' ) );
 
         wp_enqueue_media();
     }
@@ -40,19 +40,19 @@ class Amazin_Product_Box_Admin_Menu {
         switch ($action) {
             case 'view':
 
-                $template = dirname( __FILE__ ) . '/views/product-box-single.php';
+                $template = dirname( __FILE__ ) . '/views/featured-box-single.php';
                 break;
 
             case 'edit':
-                $template = dirname( __FILE__ ) . '/views/product-box-edit.php';
+                $template = dirname( __FILE__ ) . '/views/featured-box-edit.php';
                 break;
 
             case 'new':
-                $template = dirname( __FILE__ ) . '/views/product-box-new.php';
+                $template = dirname( __FILE__ ) . '/views/featured-box-new.php';
                 break;
 
             default:
-                $template = dirname( __FILE__ ) . '/views/product-box-list.php';
+                $template = dirname( __FILE__ ) . '/views/featured-box-list.php';
                 break;
         }
 
