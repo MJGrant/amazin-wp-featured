@@ -36,12 +36,12 @@ defined( 'ABSPATH' ) OR exit;
             <tbody>
                 <tr>
                     <th scope="row">
-                        <label for="amazin_featured_box_option_headline">Featured Box headline</label>
+                        <label for="amazin_featured_box_option_label">Featured Box Label</label>
                     </th>
                     <td>
-                        <input type="text" id="amazin_featured_box_option_headline" name="amazin_featured_box_option_headline" value="<?php echo get_option('amazin_featured_box_option_headline'); ?>" />
+                        <input type="text" id="amazin_featured_box_option_label" name="amazin_featured_box_option_label" value="<?php echo get_option('amazin_featured_box_option_label'); ?>" />
                         <br/>
-                        <span class="description"><?php _e('Examples: "Featured", "Read more about XYZ TOPIC", "Related", etc.', 'afb' ); ?></span>
+                        <span class="description"><?php _e('Examples: "Related Content", "Read more about TOPIC", "Our Analysis", etc.', 'afb' ); ?></span>
                     </td>
                 </tr>
                 <tr>

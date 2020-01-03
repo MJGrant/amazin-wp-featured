@@ -89,14 +89,18 @@ class Amazin_Featured_Box_List_Table extends WP_List_Table {
         $content = json_decode($item_json['post_content'], true);
         $featuredPostID = $content['featuredPostID']; //ex: 1852
 
+        $label = empty($content['customLabel']) ? get_option('amazin_featured_box_option_label') : $content['customLabel'];
+        $featuredTagline = empty($content['featuredTagline']) ? 'NO TAGLINE' : $content['featuredTagline'];
         // if custom name is empty, use the post's title. Else, use the custom name. 
-        $customName = $content['customName'];
-        $title = empty($customName) ? get_the_title( $featuredPostID ) : $customName;
+        $title = empty($content['customName']) ? get_the_title( $featuredPostID ) : $content['customName'];
+        $postAuthorID = get_post_field( 'post_author', $featuredPostID );
+        $postAuthorName = get_the_author_meta( 'display_name', $postAuthorID );
+
         $actions = array(
             'edit' => sprintf('<a href="?page=%s&action=%s&id=%s">Edit</a>', $_REQUEST['page'], 'edit', $item_json['ID']),
             'delete' => sprintf('<a href="?page=%s&action=%s&id=%s">Delete</a>', $_REQUEST['page'], 'delete', $item_json['ID']),
         );
-        return sprintf('<b>%s</b> %s', $title, $this->row_actions($actions));
+        return sprintf('%s<br><b>%s</b><br>%s<br>By %s %s', $label, $title, $featuredTagline, $postAuthorName, $this->row_actions($actions));
     }
 
     /**
