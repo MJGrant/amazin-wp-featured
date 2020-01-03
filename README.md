@@ -1,2 +1,2 @@
 # amazin-wp-featured
-A "featured" widget suitable for highlighting a particular product and directing visitors to a fuller-length review article
+The Amazin' Featured plugin for WordPress lets you create and embed eye-catching "featured article" previews into your posts.

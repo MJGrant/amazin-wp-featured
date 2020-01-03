@@ -1,0 +1,84 @@
+/* Default styles for the Amazin' Product Box */
+.amazin-product-box {
+    border:1px solid grey;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    padding:28px;
+    width:80%;
+    margin:30px auto !important;
+}
+
+.amazin-product-box-column {
+    float:left;
+}
+
+.amazin-product-box-image-row {
+    display:flex;
+    margin-bottom:20px;
+}
+
+.amazin-product-box-left {
+    width:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.amazin-product-box-right {
+    width:45%;
+    margin-left:20px;
+}
+
+.amazin-product-box-recommend-text {
+    text-transform:uppercase;
+    font-size:.8em;
+    letter-spacing: 3px;
+    text-align:center;
+    margin-bottom:0px;
+}
+
+.amazin-product-box-product-name {
+    text-align:center;
+    margin:10px 0px 32px;
+}
+
+.amazin-product-box-tagline {
+    font-weight:bold;
+    margin:0px;
+    line-height:1.4;
+}
+
+.amazin-product-box-description {
+    line-height:1.4;
+    margin-top:12px;
+}
+
+.amazin-product-box-button-wrap {
+    text-align:center;
+}
+
+.amazin-product-box a, .amazin-product-box a:visited, .amazin-product-box a:hover {
+    color:white;
+    text-decoration:none !important;
+}
+
+.amazin-product-box-button {
+    background-color: #85bf31;
+    padding:12px 18px;
+    text-align:center;
+    display:inline-block;
+    border-radius:8px;
+    margin:10px;
+    font-family:sans-serif;
+}
+
+@media screen and (max-width: 512px) {
+    .amazin-product-box-left {
+        width:100%;
+    }
+
+    .amazin-product-box-right {
+        width:100%;
+        margin-left:0;
+        margin-top:12px;
+    }
+}
