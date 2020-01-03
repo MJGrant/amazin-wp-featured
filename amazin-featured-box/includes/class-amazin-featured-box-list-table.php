@@ -87,14 +87,16 @@ class Amazin_Featured_Box_List_Table extends WP_List_Table {
     function column_name($item){
         $item_json = json_decode(json_encode($item), true);
         $content = json_decode($item_json['post_content'], true);
-        $featuredPostID = $content['featuredPostID']; //$content['customLabel']; //ex: 1852
-        $title = $featuredPostID ? get_the_title( $featuredPostID ) : "use saved custom title";
+        $featuredPostID = $content['featuredPostID']; //ex: 1852
+
+        // if custom name is empty, use the post's title. Else, use the custom name. 
+        $customName = $content['customName'];
+        $title = empty($customName) ? get_the_title( $featuredPostID ) : $customName;
         $actions = array(
             'edit' => sprintf('<a href="?page=%s&action=%s&id=%s">Edit</a>', $_REQUEST['page'], 'edit', $item_json['ID']),
             'delete' => sprintf('<a href="?page=%s&action=%s&id=%s">Delete</a>', $_REQUEST['page'], 'delete', $item_json['ID']),
         );
-        return sprintf('<b>%s</b> %s', (string)$title, $this->row_actions($actions));
-        //return sprintf('<b>%s</b> %s', $item_json['post_title'], $this->row_actions($actions));
+        return sprintf('<b>%s</b> %s', $title, $this->row_actions($actions));
     }
 
     /**

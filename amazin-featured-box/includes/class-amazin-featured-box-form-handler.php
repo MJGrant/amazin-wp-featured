@@ -41,19 +41,19 @@ class Amazin_Featured_Box_Form_Handler {
         $field_featuredURL = isset( $_POST['Featured-URL'] ) ? sanitize_text_field( $_POST['Featured-URL'] ) : '';
         
         // get post ID from the URL provided (hopefully they provided one, else the error checking below will catch)
-        $featuredPostID = isset( $_POST['Featured-URL'] ) ? url_to_postid(sanitize_text_field( $_POST['Featured-URL'] )) : '';
+        $featuredPostID = url_to_postid(sanitize_text_field( $_POST['Featured-URL'] ));
 
         // either use the custom label the user entered or enter blank to indicate the user wants to use the 'global' one
-        $field_customLabel = isset( $_POST['Custom-Label'] ) ? sanitize_text_field( $_POST['Custom-Label'] ) : '';
+        $field_customLabel = sanitize_text_field( $_POST['Custom-Label'] );
 
         // either use the name the user entered or leave blank to indicate the post name should be retrieved when displaying the featured box 
-        $field_customName = isset( $_POST['Custom-Name'] ) ? sanitize_text_field( $_POST['Custom-Name'] ) : '';
+        $field_customName = sanitize_text_field( $_POST['Custom-Name'] );
 
         // either use the custom tagline the user entered or leave it blank (and don't display it later on)
-        $field_tagline = isset( $_POST['Tagline'] ) ? sanitize_text_field( $_POST['Tagline'] ) : '';
+        $field_tagline = sanitize_text_field( $_POST['Tagline'] );
 
-        // button text is optional 
-        $field_buttonText = isset( $_POST['Button-Text'] ) ? sanitize_text_field( $_POST['Button-Text'] ) : '';
+        // button text is optional, leave it blank to hide button
+        $field_buttonText = sanitize_text_field( $_POST['Button-Text'] );
 
         // user can upload an image or use the one associated with the post by its ID 
         $field_featuredImage = isset( $_POST['Featured-Image'] ) ? sanitize_text_field( $_POST['Featured-Image'] ) : '';
@@ -76,7 +76,7 @@ class Amazin_Featured_Box_Form_Handler {
 
         $content = array(
             'featuredURL' => $field_featuredURL,
-            'featuredPostID' => $field_featuredPostID,
+            'featuredPostID' => $featuredPostID,
             'customLabel' => $field_customLabel,
             'customName' => $field_customName,
             'featuredTagline' => $field_tagline,

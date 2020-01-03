@@ -90,7 +90,7 @@ defined( 'ABSPATH' ) OR exit;
                     <td>
                         <input type="text" name="Button-Text" id="Button-Text" class="regular-text" placeholder="<?php echo esc_attr( '', 'afb' ); ?>" value=""/>
                         <br/>
-                        <span class="description"><?php _e('Complete text as it should appear on the button', 'afb' ); ?></span>
+                        <span class="description"><?php _e('Complete text as it should appear on the button. Leave blank to have no button.', 'afb' ); ?></span>
                     </td>
                 </tr>
              </tbody>

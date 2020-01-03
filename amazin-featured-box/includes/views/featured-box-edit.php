@@ -8,6 +8,23 @@ defined( 'ABSPATH' ) OR exit;
     <?php
     $item = afb_get_featured_box( $_GET['id'] );
     $content = json_decode($item->post_content, true);
+    
+    $featuredURL = $content['featuredURL']; // ex: https://www.url.com/post-id
+
+    $featuredPostID = $content['featuredPostID']; //ex: 1852
+
+    // use the custom name if one exists, else leave field blank 
+    $title = $content['customName'] ? $content['customName'] : '';
+
+    // use custom label if one exists, else leave field blank
+    $customLabel = $content['customLabel'] ? $content['customLabel'] : '';
+
+    // use custom tagline if one exists, else leave field blank
+    $tagline = $content['featuredTagline'] ? $content['featuredTagline'] : '';
+
+    // use custom button text if it exists, else leave field blank
+    $featuredButtonText = $content['featuredButtonText'] ? $content['featuredButtonText'] : '';
+
     $phURL = esc_url( plugins_url('ph.png', __FILE__ ) ) ;
 
     $image = esc_attr( wp_get_attachment_url( $content['featuredImage'] ) );
@@ -26,23 +43,48 @@ defined( 'ABSPATH' ) OR exit;
                 <!-- Edit the URL -->
                 <tr class="row-URL">
                     <th scope="row">
-                        <label for="URL"><?php _e( 'Featured article URL', 'afb' ); ?></label>
+                        <label for="Featured-URL"><?php _e( 'Featured article URL', 'afb' ); ?></label>
                     </th>
                     <td>
-                        <input type="text" name="URL" id="URL" class="regular-text" placeholder="<?php echo esc_attr( '', 'afb' ); ?>" value="<?php echo esc_attr( $content['featuredUrl'] ); ?>" required="required" />
+                        <input type="text" name="Featured-URL" id="Featured-URL" class="regular-text" placeholder="<?php echo esc_attr( '', 'afb' ); ?>" value="<?php echo esc_attr( $featuredURL ); ?>" required="required" />
                         <br/>
                         <span class="description"><?php _e('Link to the featured post or page', 'afb' ); ?></span>
                     </td>
                 </tr>
 
-                <tr class="row-featuredName">
+                <!-- Label such as "Editor's Choice" or "Related" -->
+                <tr class="row-customLabel">
                     <th scope="row">
-                        <label for="Featured-Name"><?php _e( 'Featured name', 'afb' ); ?></label>
+                        <label for="Custom-Label"><?php _e( 'Custom label', 'afb' ); ?></label>
                     </th>
                     <td>
-                        <input type="text" name="Featured-Name" id="Featured-Name" class="regular-text" placeholder="<?php echo esc_attr( '', 'afb' ); ?>" value="<?php echo esc_attr( $item->post_title ); ?>" required="required" />
+                        <input type="text" name="Custom-Label" id="Custom-Label" class="regular-text" placeholder="<?php echo esc_attr( '', 'afb' ); ?>" value="<?php echo esc_attr( $customLabel ); ?>"/>
                         <br/>
-                        <span class="description"><?php _e('Featured name, model, etc.', 'afb' ); ?></span>
+                        <span class="description"><?php _e('Label, such as "Editor\'s Choice". Leave blank to use site-wide plugin default.', 'afb' ); ?></span>
+                    </td>
+                </tr>
+
+                <!-- Enter a name or leave blank to use the featured article's name -->
+                <tr class="row-customName">
+                    <th scope="row">
+                        <label for="Custom-Name"><?php _e( 'Featured article name', 'afb' ); ?></label>
+                    </th>
+                    <td>
+                        <input type="text" name="Custom-Name" id="Custom-Name" class="regular-text" placeholder="<?php echo esc_attr( '', 'afb' ); ?>" value="<?php echo esc_attr( $title ); ?>"/>
+                        <br/>
+                        <span class="description"><?php _e('Leave blank to use the post or page\'s title', 'afb' ); ?></span>
+                    </td>
+                </tr>
+
+                <!-- Tagline for the article, should be short -->
+                <tr class="row-tagline">
+                    <th scope="row">
+                        <label for="Tagline"><?php _e( 'Tagline', 'afb' ); ?></label>
+                    </th>
+                    <td>
+                        <input type="text" name="Tagline" id="Tagline" class="regular-text" placeholder="<?php echo esc_attr( '', 'afb' ); ?>" value="<?php echo esc_attr( $tagline ); ?>" />
+                        <br/>
+                        <span class="description"><?php _e('Entice users to click over to this article (or leave blank to have no tagline at all)', 'afb' ); ?></span>
                     </td>
                 </tr>
 
@@ -63,36 +105,16 @@ defined( 'ABSPATH' ) OR exit;
                         </div>
                     </td>
                 </tr>
-
-                <tr class="row-tagline">
-                    <th scope="row">
-                        <label for="Tagline"><?php _e( 'Tagline', 'afb' ); ?></label>
-                    </th>
-                    <td>
-                        <input type="text" name="Tagline" id="Tagline" class="regular-text" placeholder="<?php echo esc_attr( '', 'afb' ); ?>" value="<?php echo esc_attr( $content['featuredTagline'] ); ?>" required="required" />
-                        <br/>
-                        <span class="description"><?php _e('A tagline is short and memorable (3-6 words)', 'afb' ); ?></span>
-                    </td>
-                </tr>
-                <tr class="row-description">
-                    <th scope="row">
-                        <label for="Description"><?php _e( 'Description', 'afb' ); ?></label>
-                    </th>
-                    <td>
-                        <textarea name="Description" id="Description"placeholder="<?php echo esc_attr( '', 'afb' ); ?>" rows="6" cols="46" required="required"><?php echo esc_textarea( $content['featuredDescription'] ); ?></textarea>
-                        <br/>
-                        <span class="description"><?php _e('Write about 20-30 words (~200 characters) enticing your visitor to choose this featured post', 'afb' ); ?></span>
-                    </td>
-                </tr>
                 
+               <!-- Button below image -->
                 <tr class="row-buttonText">
                     <th scope="row">
                         <label for="Button-Text"><?php _e( 'Button text', 'afb' ); ?></label>
                     </th>
                     <td>
-                        <input type="text" name="Button-Text" id="Button-Text" class="regular-text" placeholder="<?php echo esc_attr( '', 'afb' ); ?>" value="<?php echo esc_attr( $content['featuredButtonText'] ); ?>" required="required" />
+                        <input type="text" name="Button-Text" id="Button-Text" class="regular-text" placeholder="<?php echo esc_attr( '', 'afb' ); ?>" value="<?php echo esc_attr( $featuredButtonText ); ?>"/>
                         <br/>
-                        <span class="description"><?php _e('Complete text as it should appear on the button', 'afb' ); ?></span>
+                        <span class="description"><?php _e('Complete text as it should appear on the button. Leave blank to have no button.', 'afb' ); ?></span>
                     </td>
                 </tr>
              </tbody>
