@@ -6,6 +6,7 @@
  * Version: 1.0
  * Author: Mandi Grant
  * Author URI: http://majoh.dev
+ * Example CSS: https://gist.github.com/MJGrant/2b88077fdb8de8c7c118939cfed99a52 
  */
 
 defined( 'ABSPATH' ) OR exit;
@@ -94,6 +95,7 @@ function amazin_featured_box_render_in_post($featuredBox) {
     
     // if custom name is empty, use the post's title. Else, use the custom name. 
     $title = empty($content['customName']) ? get_the_title( $featuredPostID ) : $content['customName'];
+    $featuredURL = $content['featuredURL']; 
 
     // Get the post's author and last updated date using the post ID saved to this feature box
     $authorID = get_the_author_meta( $featuredPostID );
@@ -112,20 +114,23 @@ function amazin_featured_box_render_in_post($featuredBox) {
     $assembledDate = " | ";
     $assembledDate .= $postDate;
 
+    // If featuredImage is empty, use post's featured image instead
+    $imagePath = empty($content['featuredImage']) ?  wp_get_attachment_url( get_post_thumbnail_id($featuredPostID)) : wp_get_attachment_url( $content['featuredImage'] );
+
     ?>
         <div class="amazin-featured-box" id="<?php echo 'amazin-featured-box-id-'.$id; ?>">
             <!-- label -->
             <h2 class="amazin-featured-box-label"><?php echo $label ?></h2>
             <!-- Post title or custom name -->
-            <h3 class="amazin-featured-box-title"><a href="https://google.com"><?php echo $title ?></a></h3>
+            <h3 class="amazin-featured-box-title"><a href="<?php echo $featuredURL ?>"><?php echo $title ?></a></h3>
             <!-- Tagline, if there is one -->
             <p class="amazin-featured-box-tagline"><?php echo $content['featuredTagline'] ?></p>
             <!-- Author name and last updated date, if options checked -->
-            <span><?php echo $assembledAuthor ?></span><span><?php echo $assembledDate ?></span>
+            <p class="amazin-featured-box-author-and-date"><span><?php echo $assembledAuthor ?></span><span><?php echo $assembledDate ?></span></p>
             
             <!-- Featured or Custom Image -->
             <div class="amazin-featured-box-image-row">
-                <img src="<?php echo wp_get_attachment_url( $content['featuredImage'] ) ?>"/>
+                <img src="<?php echo $imagePath ?>"/>
                 
             </div>
             
