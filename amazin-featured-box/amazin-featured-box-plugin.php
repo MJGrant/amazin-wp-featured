@@ -130,7 +130,7 @@ function amazin_featured_box_render_in_post($featuredBox) {
             
             <!-- Featured or Custom Image -->
             <div class="amazin-featured-box-image-row">
-                <img src="<?php echo $imagePath ?>"/>
+                <a href="<?php echo $featuredURL ?>"><img src="<?php echo $imagePath ?>"/><a>
                 
             </div>
             
