@@ -42,8 +42,15 @@ add_action( 'init', function() {
 
     add_option( 'amazin_featured_box_option_label', 'Editor\'s Choice');
     add_option( 'amazin_featured_box_option_new_tab', false);
+    add_option( 'amazin_featured_box_by_label', 'By');
+    add_option( 'amazin_featured_box_option_display_post_date', true);
+    add_option( 'amazin_featured_box_option_display_post_author', true);
+
     register_setting( 'amazin_featured_box_options_group', 'amazin_featured_box_option_label', 'amazin_featured_box_callback' );
     register_setting( 'amazin_featured_box_options_group', 'amazin_featured_box_option_new_tab', 'amazin_featured_box_callback' );
+    register_setting( 'amazin_featured_box_options_group', 'amazin_featured_box_option_by_label', 'amazin_featured_box_callback' );
+    register_setting( 'amazin_featured_box_options_group', 'amazin_featured_box_option_display_post_date', 'amazin_featured_box_callback' );
+    register_setting( 'amazin_featured_box_options_group', 'amazin_featured_box_option_display_post_author', 'amazin_featured_box_callback' );
 
     add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), 'amazin_featured_add_plugin_action_links' );
 
