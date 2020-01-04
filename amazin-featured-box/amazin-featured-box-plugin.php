@@ -23,7 +23,7 @@ add_action( 'init', function() {
     wp_enqueue_script('admin', $jsurl, array( 'jquery' ), 1.4, true);
 
     $cssurl = plugin_dir_url(__FILE__) . 'styles.css';
-    wp_enqueue_style( 'amazin-stylesheet', $cssurl, array(), 1.35 );
+    wp_enqueue_style( 'amazin-featured-box-stylesheet', $cssurl, array(), 1.39 );
 
     register_post_type('amazin_featured_box',
         array(

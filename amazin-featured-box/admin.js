@@ -1,8 +1,6 @@
 jQuery(document).ready(function($) {
     // The "Upload" button
     $('.upload_image_button').click(function() {
-        console.log("clicked");
-        console.log(wp.media.editor.send.attachment);
         var send_attachment_bkp = wp.media.editor.send.attachment;
         var button = $(this);
         wp.media.editor.send.attachment = function(props, attachment) {
