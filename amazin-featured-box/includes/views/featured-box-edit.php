@@ -45,7 +45,7 @@ defined( 'ABSPATH' ) OR exit;
                     <td>
                         <input type="text" name="Featured-URL" id="Featured-URL" class="regular-text" placeholder="<?php echo esc_attr( '', 'afb' ); ?>" value="<?php echo esc_attr( $featuredURL ); ?>" required="required" />
                         <br/>
-                        <span class="description"><?php _e('Link to the featured post or page', 'afb' ); ?></span>
+                        <span class="description"><?php _e('Link to the featured post or page (REQUIRED)', 'afb' ); ?></span>
                     </td>
                 </tr>
 
@@ -87,7 +87,7 @@ defined( 'ABSPATH' ) OR exit;
 
                 <tr class="row-Featured-Image">
                     <th scope="row">
-                        <label for="Featured-Name"><?php _e( 'Featured image', 'afb' ); ?></label>
+                        <label for="Featured-Name"><?php _e( 'Custom featured image', 'afb' ); ?></label>
                     </th>
                     <td>
                         <div class="upload">
@@ -97,7 +97,7 @@ defined( 'ABSPATH' ) OR exit;
                                 <button type="submit" class="upload_image_button button"><?php _e( 'Upload/Choose', 'afb' ); ?></button>
                                 <button type="submit" class="remove_image_button button"><?php _e( 'Clear', 'afb' ); ?></button>
                                 <br/>
-                                <span class="description"><?php _e('Upload a large (1000x1000 or greater) image or leave blank to use the post\'s featured image.', 'afb' ); ?></span>
+                                <span class="description"><?php _e('Upload a large image or leave blank to use the post\'s featured image.', 'afb' ); ?></span>
                             </div>
                         </div>
                     </td>

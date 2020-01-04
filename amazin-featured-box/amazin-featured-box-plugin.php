@@ -20,7 +20,7 @@ add_action( 'init', function() {
     // WordPress image upload library
     wp_enqueue_media();
     $jsurl = plugin_dir_url(__FILE__) . 'admin.js';
-    wp_enqueue_script('admin', $jsurl, array( 'jquery' ), 1.1, true);
+    wp_enqueue_script('admin', $jsurl, array( 'jquery' ), 1.4, true);
 
     $cssurl = plugin_dir_url(__FILE__) . 'styles.css';
     wp_enqueue_style( 'amazin-stylesheet', $cssurl, array(), 1.35 );
@@ -119,19 +119,22 @@ function amazin_featured_box_render_in_post($featuredBox) {
 
     ?>
         <div class="amazin-featured-box" id="<?php echo 'amazin-featured-box-id-'.$id; ?>">
-            <!-- label -->
-            <h2 class="amazin-featured-box-label"><?php echo $label ?></h2>
-            <!-- Post title or custom name -->
-            <h3 class="amazin-featured-box-title"><a href="<?php echo $featuredURL ?>"><?php echo $title ?></a></h3>
-            <!-- Tagline, if there is one -->
-            <p class="amazin-featured-box-tagline"><?php echo $content['featuredTagline'] ?></p>
-            <!-- Author name and last updated date, if options checked -->
-            <p class="amazin-featured-box-author-and-date"><span><?php echo $assembledAuthor ?></span><span><?php echo $assembledDate ?></span></p>
-            
-            <!-- Featured or Custom Image -->
-            <div class="amazin-featured-box-image-row">
-                <a href="<?php echo $featuredURL ?>"><img src="<?php echo $imagePath ?>"/><a>
-                
+            <div class="amazin-featured-box-text">
+                <!-- label -->
+                <h2 class="amazin-featured-box-label"><?php echo $label ?></h2>
+                <!-- Post title or custom name -->
+                <h3 class="amazin-featured-box-title"><a href="<?php echo $featuredURL ?>"><?php echo $title ?></a></h3>
+                <!-- Tagline, if there is one -->
+                <p class="amazin-featured-box-tagline"><?php echo $content['featuredTagline'] ?></p>
+                <!-- Author name and last updated date, if options checked -->
+                <p class="amazin-featured-box-author-and-date"><span><?php echo $assembledAuthor ?></span><span><?php echo $assembledDate ?></span></p>
+            </div>
+
+            <div class="amazin-featured-box-image">
+                <!-- Featured or Custom Image -->
+                <div class="amazin-featured-box-image-row">
+                    <a href="<?php echo $featuredURL ?>"><img src="<?php echo $imagePath ?>"/></a>
+                </div>
             </div>
             
         </div>

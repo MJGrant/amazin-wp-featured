@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) OR exit;
                     <td>
                         <input type="text" name="Featured-URL" id="Featured-URL" class="regular-text" placeholder="<?php echo esc_attr( '', 'afb' ); ?>" value="" required="required" />
                         <br/>
-                        <span class="description"><?php _e('Link to the featured post or page', 'afb' ); ?></span>
+                        <span class="description"><?php _e('Link to the featured post or page (REQUIRED)', 'afb' ); ?></span>
                     </td>
                 </tr>
 
@@ -65,7 +65,7 @@ defined( 'ABSPATH' ) OR exit;
                 <!-- Upload a featured image or leave blank to use the article's own featured image -->
                 <tr class="row-Featured-Image">
                     <th scope="row">
-                        <label for="Featured-Name"><?php _e( 'Featured image', 'afb' ); ?></label>
+                        <label for="Featured-Name"><?php _e( 'Custom featured image', 'afb' ); ?></label>
                     </th>
                     <td>
                         <div class="upload">
@@ -75,22 +75,9 @@ defined( 'ABSPATH' ) OR exit;
                                 <button type="submit" class="upload_image_button button"><?php _e( 'Upload/Choose', 'afb' ); ?></button>
                                 <button type="submit" class="remove_image_button button"><?php _e( 'Clear', 'afb' ); ?></button>
                                 <br/>
-                                <span class="description"><?php _e('Leave blank to use the featured image already associated with this post or page', 'afb' ); ?></span>
+                                <span class="description"><?php _e('Upload a large image or leave blank to use the post\'s featured image.', 'afb' ); ?></span>
                             </div>
                         </div>
-                    </td>
-                </tr>
-
-            
-                <!-- Button below image -->
-                <tr class="row-buttonText">
-                    <th scope="row">
-                        <label for="Button-Text"><?php _e( 'Button text', 'afb' ); ?></label>
-                    </th>
-                    <td>
-                        <input type="text" name="Button-Text" id="Button-Text" class="regular-text" placeholder="<?php echo esc_attr( '', 'afb' ); ?>" value=""/>
-                        <br/>
-                        <span class="description"><?php _e('Complete text as it should appear on the button. Leave blank to have no button.', 'afb' ); ?></span>
                     </td>
                 </tr>
              </tbody>
