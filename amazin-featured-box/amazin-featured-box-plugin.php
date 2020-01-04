@@ -42,7 +42,7 @@ add_action( 'init', function() {
 
     add_option( 'amazin_featured_box_option_label', 'Editor\'s Choice');
     add_option( 'amazin_featured_box_option_new_tab', false);
-    add_option( 'amazin_featured_box_by_label', 'By');
+    add_option( 'amazin_featured_box_option_by_label', 'By');
     add_option( 'amazin_featured_box_option_display_post_date', true);
     add_option( 'amazin_featured_box_option_display_post_author', true);
 
@@ -81,8 +81,9 @@ function amazin_featured_box_render_in_post($featuredBox) {
     ob_start();
     $id = $featuredBox->ID;
     $featuredBoxTitle = $featuredBox->post_title;
-    $item = afb_get_featured_box( 219 );
+    $item = afb_get_featured_box( $id );
     $newTab = get_option('amazin_featured_box_option_new_tab') ? 'target="_blank"' : '';
+    $displayPostAuthor = get_option('amazin_featured_box_option_display_post_author');
 
     // content contains things like post ID, custom label and tagline, etc. 
     $content = json_decode($item->post_content, true);
@@ -91,26 +92,43 @@ function amazin_featured_box_render_in_post($featuredBox) {
     $featuredPostID = $content['featuredPostID'];
     $label = $content['customLabel'] ? $content['customLabel'] : get_option('amazin-featured_box_option_label');
     
-    // If the user set custom text for the link, use that. Otherwise, get and use the post's current title.
+    // if custom name is empty, use the post's title. Else, use the custom name. 
+    $title = empty($content['customName']) ? get_the_title( $featuredPostID ) : $content['customName'];
 
     // Get the post's author and last updated date using the post ID saved to this feature box
     $authorID = get_the_author_meta( $featuredPostID );
-    $authorName = get_the_author_meta( 'display_name', $authorID )
+
+    // Set to empty strings if the option to display them is not true
+    $by = get_option( 'amazin_featured_box_option_by_label' ) ? get_option( 'amazin_featured_box_option_by_label' ) : '';
+    $postAuthor = get_option( 'amazin_featured_box_option_display_post_author' ) ? get_the_author_meta( 'display_name', $authorID ) : '';
+
+    $assembledAuthor = $by;
+    $assembledAuthor .= " ";
+    $assembledAuthor .= $postAuthor;
+
+    // Set to empty string if the option to display the date is not true
+    $postDate = get_option( 'amazin_featured_box_option_display_post_date' ) ? get_the_modified_time( 'F j, Y', $featuredPostID ) : '';
+
+    $assembledDate = " | ";
+    $assembledDate .= $postDate;
 
     ?>
         <div class="amazin-featured-box" id="<?php echo 'amazin-featured-box-id-'.$id; ?>">
-            <p class="amazin-featured-box-label"><?php echo $label ?></p>
-            <p class="amazin-featured-box-recommend-text"><?php echo get_option('amazin_featured_box_option_label'); ?></p>
-            <h3 class="amazin-featured-box-featured-name"><?php echo $featuredBoxTitle ?></h3>
+            <!-- label -->
+            <h2 class="amazin-featured-box-label"><?php echo $label ?></h2>
+            <!-- Post title or custom name -->
+            <h3 class="amazin-featured-box-title"><a href="https://google.com"><?php echo $title ?></a></h3>
+            <!-- Tagline, if there is one -->
+            <p class="amazin-featured-box-tagline"><?php echo $content['featuredTagline'] ?></p>
+            <!-- Author name and last updated date, if options checked -->
+            <span><?php echo $assembledAuthor ?></span><span><?php echo $assembledDate ?></span>
             
+            <!-- Featured or Custom Image -->
             <div class="amazin-featured-box-image-row">
-                <img src="<?php echo wp_get_attachment_url( $content['productImage'] ) ?>"/>
-                <p class="amazin-featured-box-tagline"><?php echo $content['productTagline'] ?></p>
+                <img src="<?php echo wp_get_attachment_url( $content['featuredImage'] ) ?>"/>
+                
             </div>
-            <div class="amazin-featured-box-button-wrap">
-                <a href="<?php echo $content['productUrl'] ?>" class="amazin-featured-box-button" <?php echo $newTab ?> ><?php echo $content['productButtonText'] ?></a>
-            </div>
-            <span> By <?php echo $authorName ?></span>
+            
         </div>
     <?php
     return ob_get_clean();

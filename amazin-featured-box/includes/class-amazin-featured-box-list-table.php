@@ -94,6 +94,8 @@ class Amazin_Featured_Box_List_Table extends WP_List_Table {
         // if custom name is empty, use the post's title. Else, use the custom name. 
         $title = empty($content['customName']) ? get_the_title( $featuredPostID ) : $content['customName'];
 
+        $byLabel = get_option('amazin_featured_box_option_by_label');
+
         $postAuthorID = get_post_field( 'post_author', $featuredPostID );
         $postAuthorName = get_the_author_meta( 'display_name', $postAuthorID );
 
@@ -103,7 +105,7 @@ class Amazin_Featured_Box_List_Table extends WP_List_Table {
             'edit' => sprintf('<a href="?page=%s&action=%s&id=%s">Edit</a>', $_REQUEST['page'], 'edit', $item_json['ID']),
             'delete' => sprintf('<a href="?page=%s&action=%s&id=%s">Delete</a>', $_REQUEST['page'], 'delete', $item_json['ID']),
         );
-        return sprintf('%s<br><b>%s</b><br>%s<br>By %s | %s %s', $label, $title, $featuredTagline, $postAuthorName, $postDate, $this->row_actions($actions));
+        return sprintf('%s<br><b>%s</b><br>%s<br>%s %s | %s %s', $label, $title, $featuredTagline, $byLabel, $postAuthorName, $postDate, $this->row_actions($actions));
     }
 
     /**

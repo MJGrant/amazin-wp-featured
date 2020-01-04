@@ -22,9 +22,6 @@ defined( 'ABSPATH' ) OR exit;
     // use custom tagline if one exists, else leave field blank
     $tagline = $content['featuredTagline'] ? $content['featuredTagline'] : '';
 
-    // use custom button text if it exists, else leave field blank
-    $featuredButtonText = $content['featuredButtonText'] ? $content['featuredButtonText'] : '';
-
     $phURL = esc_url( plugins_url('ph.png', __FILE__ ) ) ;
 
     $image = esc_attr( wp_get_attachment_url( $content['featuredImage'] ) );
@@ -106,17 +103,6 @@ defined( 'ABSPATH' ) OR exit;
                     </td>
                 </tr>
                 
-               <!-- Button below image -->
-                <tr class="row-buttonText">
-                    <th scope="row">
-                        <label for="Button-Text"><?php _e( 'Button text', 'afb' ); ?></label>
-                    </th>
-                    <td>
-                        <input type="text" name="Button-Text" id="Button-Text" class="regular-text" placeholder="<?php echo esc_attr( '', 'afb' ); ?>" value="<?php echo esc_attr( $featuredButtonText ); ?>"/>
-                        <br/>
-                        <span class="description"><?php _e('Complete text as it should appear on the button. Leave blank to have no button.', 'afb' ); ?></span>
-                    </td>
-                </tr>
              </tbody>
         </table>
 

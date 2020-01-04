@@ -67,7 +67,7 @@ defined( 'ABSPATH' ) OR exit;
                         <label for="amazin_featured_box_by_label">Author biline label (default "By")</label>
                     </th>
                     <td>
-                        <input type="text" id="amazin_featured_box_by_label" name="amazin_featured_box_by_label" value="<?php echo get_option('amazin_featured_box_by_label'); ?>" />
+                        <input type="text" id="amazin_featured_box_option_by_label" name="amazin_featured_box_option_by_label" value="<?php echo get_option('amazin_featured_box_option_by_label'); ?>" />
                         <br/>
                         <span class="description"><?php _e('Examples: "By", "Author:", or leave blank', 'afb' ); ?></span>
                     </td>
