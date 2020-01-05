@@ -1,5 +1,5 @@
-# amazin-wp-featured
-"Amazin' Featured Article Box" is a simple WordPress plugin that lets you create and embed eye-catching "featured article" preview boxes into your posts using a shortcode. 
+# Amazin' Featured Article Box WordPress Plugin
+This simple plugin lets you create and embed eye-catching "featured article" preview boxes into your WP posts using a shortcode. 
 
 ![alt text](samples/amazin-featured-article-box-sample1.jpg "Amazin Featured Box in action")
 
