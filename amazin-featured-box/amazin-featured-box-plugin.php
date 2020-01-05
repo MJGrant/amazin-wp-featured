@@ -123,7 +123,7 @@ function amazin_featured_box_render_in_post($featuredBox) {
                 <!-- label -->
                 <h2 class="amazin-featured-box-label"><?php echo $label ?></h2>
                 <!-- Post title or custom name -->
-                <h3 class="amazin-featured-box-title"><a href="<?php echo $featuredURL ?>"><?php echo $title ?></a></h3>
+                <h3 class="amazin-featured-box-title"><a href="<?php echo $featuredURL ?>" <?php echo $newTab ?> ><?php echo $title ?></a></h3>
                 <!-- Tagline, if there is one -->
                 <p class="amazin-featured-box-tagline"><?php echo $content['featuredTagline'] ?></p>
                 <!-- Author name and last updated date, if options checked -->
@@ -133,7 +133,7 @@ function amazin_featured_box_render_in_post($featuredBox) {
             <div class="amazin-featured-box-image">
                 <!-- Featured or Custom Image -->
                 <div class="amazin-featured-box-image-row">
-                    <a href="<?php echo $featuredURL ?>"><img src="<?php echo $imagePath ?>"/></a>
+                    <a href="<?php echo $featuredURL ?>" class="amazin-featured-box-img-a" <?php echo $newTab ?> ><img src="<?php echo $imagePath ?>"/></a>
                 </div>
             </div>
             
