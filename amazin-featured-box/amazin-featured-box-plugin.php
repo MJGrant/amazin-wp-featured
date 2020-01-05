@@ -101,18 +101,32 @@ function amazin_featured_box_render_in_post($featuredBox) {
     $authorID = get_the_author_meta( $featuredPostID );
 
     // Set to empty strings if the option to display them is not true
-    $by = get_option( 'amazin_featured_box_option_by_label' ) ? get_option( 'amazin_featured_box_option_by_label' ) : '';
-    $postAuthor = get_option( 'amazin_featured_box_option_display_post_author' ) ? get_the_author_meta( 'display_name', $authorID ) : '';
 
-    $assembledAuthor = $by;
-    $assembledAuthor .= " ";
-    $assembledAuthor .= $postAuthor;
+    // if the setting to display the post author is true, assemble the byline
+    $byline = '';
+    if ( get_option('amazin_featured_box_option_display_post_author')) {
+        $by = get_option( 'amazin_featured_box_option_by_label' ) ? get_option( 'amazin_featured_box_option_by_label' ) : '';
+        $postAuthor = get_option( 'amazin_featured_box_option_display_post_author' ) ? get_the_author_meta( 'display_name', $authorID ) : '';
 
-    // Set to empty string if the option to display the date is not true
-    $postDate = get_option( 'amazin_featured_box_option_display_post_date' ) ? get_the_modified_time( 'F j, Y', $featuredPostID ) : '';
+        $byline = $by;
+        $byline .= " ";
+        $byline .= $postAuthor;
+    }
 
-    $assembledDate = " | ";
-    $assembledDate .= $postDate;
+    // if the setting to display the post's date is true, assemble the "bar" and the date 
+    // todo: user choice over date formats
+    $featuredPostDate = '';
+    if ( get_option( 'amazin_featured_box_option_display_post_date' )) {
+        $postDate = get_the_modified_time( 'F j, Y', $featuredPostID );
+
+        // we only need this bar if the user is showing both the author AND the date
+        // if just the date, no bar needed
+        if ( get_option('amazin_featured_box_option_display_post_author')) {
+            $featuredPostDate .= " | ";
+        }
+        
+        $featuredPostDate .= $postDate;
+    }
 
     // If featuredImage is empty, use post's featured image instead
     $imagePath = empty($content['featuredImage']) ?  wp_get_attachment_url( get_post_thumbnail_id($featuredPostID)) : wp_get_attachment_url( $content['featuredImage'] );
@@ -127,7 +141,7 @@ function amazin_featured_box_render_in_post($featuredBox) {
                 <!-- Tagline, if there is one -->
                 <p class="amazin-featured-box-tagline"><?php echo $content['featuredTagline'] ?></p>
                 <!-- Author name and last updated date, if options checked -->
-                <p class="amazin-featured-box-author-and-date"><span><?php echo $assembledAuthor ?></span><span><?php echo $assembledDate ?></span></p>
+                <p class="amazin-featured-box-author-and-date"><span><?php echo $byline ?></span><span><?php echo $featuredPostDate ?></span></p>
             </div>
 
             <div class="amazin-featured-box-image">
