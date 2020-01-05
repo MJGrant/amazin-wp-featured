@@ -15,7 +15,7 @@ At minimum, you must enter a URL from a page on your blog.
 
 ## Inserting the featured box into a post
 On the plugin management page, copy the shortcode for the Featured Article Box you want to embed in a post.
-![alt text](samples/add-new-featured-box.png "Creating an Amazin Featured Box")
+![alt text](samples/select-shortcode.png "Copy and paste this shortcode into your post")
 
 Edit the post and paste that shortcode where you want the box to appear. Save the post and view it: your Featured Article Box should now be in the post. 
 
