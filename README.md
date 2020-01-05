@@ -25,3 +25,6 @@ Every template elements of the Amazin' Featured Box has a class you can write cu
 
 Example CSS #1:
 https://gist.github.com/MJGrant/2b88077fdb8de8c7c118939cfed99a52
+
+Example CSS #2:
+https://gist.github.com/MJGrant/584107dbc8d62ff8be18954f76dc0944
