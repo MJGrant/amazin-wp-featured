@@ -5,6 +5,7 @@ This simple plugin lets you create and embed eye-catching "featured article" pre
 
 ## Plugin installation
 Download the .zip file from this repo and upload it as a new plugin on your site. Activate the plugin. 
+![alt text](samples/upload-zip.png "Upload the plugin's zip file")
 
 ## Creating and managing your "Featured Article" boxes
 From the plugins page, navigate to Amazin' Featured Box and click "NEW"
