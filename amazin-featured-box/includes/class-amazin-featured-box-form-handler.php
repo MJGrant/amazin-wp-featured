@@ -52,9 +52,6 @@ class Amazin_Featured_Box_Form_Handler {
         // either use the custom tagline the user entered or leave it blank (and don't display it later on)
         $field_tagline = sanitize_text_field( $_POST['Tagline'] );
 
-        // button text is optional, leave it blank to hide button
-        $field_buttonText = sanitize_text_field( $_POST['Button-Text'] );
-
         // user can upload an image or use the one associated with the post by its ID 
         $field_featuredImage = isset( $_POST['Featured-Image'] ) ? sanitize_text_field( $_POST['Featured-Image'] ) : '';
 
