@@ -77,7 +77,6 @@ class Amazin_Featured_Box_Form_Handler {
             'customLabel' => $field_customLabel,
             'customName' => $field_customName,
             'featuredTagline' => $field_tagline,
-            'featuredButtonText' => $field_buttonText,
             'featuredImage' => $field_featuredImage //ID of media attachment
         );
 
