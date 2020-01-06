@@ -91,7 +91,7 @@ function amazin_featured_box_render_in_post($featuredBox) {
 
     // If the user set a label, use that. Otherwise, use the universal label from options. 
     $featuredPostID = $content['featuredPostID'];
-    $label = $content['customLabel'] ? $content['customLabel'] : get_option('amazin-featured_box_option_label');
+    $label = $content['customLabel'] ? $content['customLabel'] : get_option('amazin_featured_box_option_label');
     
     // if custom name is empty, use the post's title. Else, use the custom name. 
     $title = empty($content['customName']) ? get_the_title( $featuredPostID ) : $content['customName'];
@@ -124,7 +124,7 @@ function amazin_featured_box_render_in_post($featuredBox) {
         if ( get_option('amazin_featured_box_option_display_post_author')) {
             $featuredPostDate .= " | ";
         }
-        
+
         $featuredPostDate .= $postDate;
     }
 
